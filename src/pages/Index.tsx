@@ -17,6 +17,24 @@ import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 
+const cities = [
+  'Москва',
+  'Санкт-Петербург',
+  'Новосибирск',
+  'Екатеринбург',
+  'Казань',
+  'Нижний Новгород',
+  'Челябинск',
+  'Самара',
+  'Омск',
+  'Ростов-на-Дону',
+  'Уфа',
+  'Красноярск',
+  'Воронеж',
+  'Пермь',
+  'Волгоград',
+];
+
 const categories = [
   { name: 'Электроника', icon: 'Smartphone', count: 1234 },
   { name: 'Одежда', icon: 'Shirt', count: 890 },
@@ -103,6 +121,7 @@ const Index = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 10000000]);
   const [selectedCondition, setSelectedCondition] = useState('all');
+  const [selectedCity, setSelectedCity] = useState('all');
 
   return (
     <div className="min-h-screen bg-background">
@@ -118,8 +137,22 @@ const Index = () => {
               </h1>
             </div>
 
-            <div className="flex-1 max-w-2xl">
-              <div className="relative">
+            <div className="flex-1 max-w-2xl flex gap-2">
+              <Select value={selectedCity} onValueChange={setSelectedCity}>
+                <SelectTrigger className="w-[200px] h-12">
+                  <Icon name="MapPin" size={18} className="mr-2" />
+                  <SelectValue placeholder="Город" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Все города</SelectItem>
+                  {cities.map((city) => (
+                    <SelectItem key={city} value={city}>
+                      {city}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <div className="relative flex-1">
                 <Icon name="Search" className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
                 <Input
                   placeholder="Поиск товаров и услуг..."
@@ -270,6 +303,23 @@ const Index = () => {
                   </Select>
                 </div>
 
+                <div className="space-y-2">
+                  <Label>Город</Label>
+                  <Select value={selectedCity} onValueChange={setSelectedCity}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Выберите город" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Все города</SelectItem>
+                      {cities.map((city) => (
+                        <SelectItem key={city} value={city}>
+                          {city}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
                 <div className="flex items-center space-x-2">
                   <Switch id="photo-only" />
                   <Label htmlFor="photo-only">Только с фото</Label>
@@ -282,6 +332,7 @@ const Index = () => {
                   <Button variant="outline" onClick={() => {
                     setPriceRange([0, 10000000]);
                     setSelectedCondition('all');
+                    setSelectedCity('all');
                   }}>
                     Сбросить
                   </Button>
