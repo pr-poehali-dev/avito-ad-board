@@ -16,6 +16,7 @@ import {
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import { Link } from 'react-router-dom';
 
 const cities = [
   'Москва',
@@ -180,11 +181,13 @@ const Index = () => {
                 <Icon name="Plus" size={20} className="mr-2" />
                 Разместить
               </Button>
-              <Avatar className="cursor-pointer">
-                <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white">
-                  ВП
-                </AvatarFallback>
-              </Avatar>
+              <Link to="/dashboard">
+                <Avatar className="cursor-pointer hover:opacity-80 transition-opacity">
+                  <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white">
+                    ИП
+                  </AvatarFallback>
+                </Avatar>
+              </Link>
             </div>
           </div>
         </div>
